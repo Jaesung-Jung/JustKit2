@@ -257,6 +257,28 @@ extension UIStackView {
   }
 }
 
+// MARK: - UIColor (Dynamic)
+
+extension UIColor {
+  /// Initializes `UIColor` objects corresponding to light and dark modes.
+  ///
+  /// - Parameters:
+  ///   - light: The color to use in light mode.
+  ///   - dark: The color to use in dark mode.
+  ///   - accessibilityLight: The color for light mode when accessibility features like increased contrast are enabled. Defaults to `nil`.
+  ///   - accessibilityDark: The color for dark mode when accessibility features like increased contrast are enabled. Defaults to `nil`.
+  public convenience init(light: UIColor, dark: UIColor, accessibilityLight: UIColor? = nil, accessibilityDark: UIColor? = nil) {
+    self.init { traitCollection in
+      switch traitCollection.userInterfaceStyle {
+      case .dark:
+        return traitCollection.accessibilityContrast == .high ? (accessibilityDark ?? dark) : dark
+      default:
+        return traitCollection.accessibilityContrast == .high ? (accessibilityLight ?? light) : light
+      }
+    }
+  }
+}
+
 // MARK: - UIColor (Components)
 
 extension UIColor {
