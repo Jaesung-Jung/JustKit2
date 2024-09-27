@@ -334,7 +334,7 @@ extension UIFont {
   ///
   /// - Parameter weight: The `UIFont.Weight` to apply to the font.
   /// - Returns: A new `UIFont` instance with the specified weight.
-  public func weight(_ weight: UIFont.Weight) -> UIFont {
+  public func withWeight(_ weight: UIFont.Weight) -> UIFont {
     return UIFont(
       descriptor: fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]]),
       size: pointSize

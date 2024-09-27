@@ -310,7 +310,7 @@ extension JKButton {
 
     func updateUIView(_ imageView: UIImageView, context: Context) {
       var symbolConfiguration = UIImage.SymbolConfiguration(
-        font: configuration.componentSize.preferredUIFont.weight(configuration.fontWeight)
+        font: configuration.componentSize.preferredUIFont.withWeight(configuration.fontWeight)
       )
       if !configuration.controlState.isEnabled {
         symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(.tertiaryLabel))
