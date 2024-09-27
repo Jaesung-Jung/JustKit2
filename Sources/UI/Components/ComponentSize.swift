@@ -79,6 +79,25 @@ public enum ComponentSize: CaseIterable {
     }
   }
 
+  var controlSize: ControlSize {
+    switch self {
+    case .mini:
+      return .mini
+    case .small:
+      return .small
+    case .large:
+      return .large
+    case .extraLarge:
+      if #available(iOS 17.0, macCatalyst 17.0, *) {
+        return .extraLarge
+      } else {
+        return .large
+      }
+    default:
+      return .regular
+    }
+  }
+
   var preferredFont: Font {
     switch self {
     case .mini, .small:

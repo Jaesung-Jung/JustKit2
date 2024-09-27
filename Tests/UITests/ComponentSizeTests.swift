@@ -103,4 +103,27 @@ import Testing
       #expect(uiFont == UIFont.just.title4())
     }
   }
+
+  @Test func testControlSize() {
+    let componentSizes: [ComponentSize] = [.mini, .small, .regular, .large]
+    for componentSize in componentSizes {
+      let controlSize = componentSize.controlSize
+      switch componentSize {
+      case .mini:
+        #expect(controlSize == .mini)
+      case .small:
+        #expect(controlSize == .small)
+      case .regular:
+        #expect(controlSize == .regular)
+      case .large:
+        #expect(controlSize == .large)
+      case .extraLarge:
+        if #available(iOS 17.0, macCatalyst 17.0, *) {
+          #expect(controlSize == .extraLarge)
+        } else {
+          #expect(controlSize == .large)
+        }
+      }
+    }
+  }
 }
