@@ -64,20 +64,20 @@ import Testing
       let font = componentSize.preferredFont
       switch componentSize {
       case .mini:
-        #expect(font == .just.caption)
+        #expect(font == .subheadline)
       case .small:
-        #expect(font == .just.footnote)
+        #expect(font == .subheadline)
       case .large:
-        #expect(font == .just.headline)
+        #expect(font == .title3)
       default:
-        #expect(font == .just.body)
+        #expect(font == .body)
       }
     }
 
     if #available(iOS 17.0, macCatalyst 17.0, *) {
       let componentSize = ComponentSize.extraLarge
       let font = componentSize.preferredFont
-      #expect(font == .just.title4)
+      #expect(font == .title2)
     }
   }
 
@@ -87,20 +87,20 @@ import Testing
       let uiFont = componentSize.preferredUIFont
       switch componentSize {
       case .mini:
-        #expect(uiFont == UIFont.just.caption())
+        #expect(uiFont == .preferredFont(forTextStyle: .footnote))
       case .small:
-        #expect(uiFont == UIFont.just.footnote())
+        #expect(uiFont == .preferredFont(forTextStyle: .subheadline))
       case .large:
-        #expect(uiFont == UIFont.just.headline())
+        #expect(uiFont == .preferredFont(forTextStyle: .title3))
       default:
-        #expect(uiFont == UIFont.just.body())
+        #expect(uiFont == .preferredFont(forTextStyle: .body))
       }
     }
 
     if #available(iOS 17.0, macCatalyst 17.0, *) {
       let componentSize = ComponentSize.extraLarge
       let uiFont = componentSize.preferredUIFont
-      #expect(uiFont == UIFont.just.title4())
+      #expect(uiFont == .preferredFont(forTextStyle: .title2))
     }
   }
 
