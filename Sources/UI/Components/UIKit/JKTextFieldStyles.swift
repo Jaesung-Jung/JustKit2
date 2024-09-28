@@ -40,12 +40,14 @@ extension JKTextField {
 extension JKTextField {
   class TextFieldDecorationView: UIView {
     let placeholderLabel: UILabel
+    let customContentInsets: NSDirectionalEdgeInsets?
     var textObservation: NSKeyValueObservation?
     weak var textField: UITextField?
-    var contentInsets: NSDirectionalEdgeInsets { .zero }
+    var contentInsets: NSDirectionalEdgeInsets { customContentInsets ?? .zero }
 
-    init(placeholderLabel: UILabel) {
+    init(placeholderLabel: UILabel, contentInsets: NSDirectionalEdgeInsets?) {
       self.placeholderLabel = placeholderLabel
+      self.customContentInsets = contentInsets
       super.init(frame: .zero)
       self.isUserInteractionEnabled = false
     }
@@ -94,16 +96,27 @@ extension JKTextField {
     }
 
     func textRect(for rect: CGRect) -> CGRect {
-      return rect
+      guard let textField else {
+        return rect
+      }
+      let hasLeftView = textField.leftView != nil
+      let hasRightView = textField.rightView != nil
+      return CGRect(
+        x: rect.minX + (hasLeftView ? 0 : contentInsets.leading),
+        y: rect.minY,
+        width: rect.width - contentInsets.leading - (hasRightView ? 0 : contentInsets.trailing),
+        height: rect.height
+      )
     }
 
     func leftViewRect(for rect: CGRect) -> CGRect {
-      return rect
+      return CGRect(x: rect.minX + contentInsets.leading, y: rect.minY, width: rect.width, height: rect.height)
     }
 
     func rightViewRect(for rect: CGRect) -> CGRect {
-      return rect
+      return CGRect(x: rect.minX - contentInsets.trailing, y: rect.minY, width: rect.width, height: rect.height)
     }
+
 
     func didChangeText(_ text: String?) {
       placeholderLabel.isHidden = text.map { !$0.isEmpty } ?? false
@@ -127,7 +140,7 @@ extension JKTextField {
   class UnderlineTextFieldDecorationView: TextFieldDecorationView {
     let separatorView = UIView()
     let tintSeparatorView = UIView()
-    override var contentInsets: NSDirectionalEdgeInsets { NSDirectionalEdgeInsets(bottom: 9) }
+    override var contentInsets: NSDirectionalEdgeInsets { customContentInsets ?? NSDirectionalEdgeInsets(bottom: 9) }
 
     override func configure() {
       super.configure()
@@ -198,7 +211,7 @@ extension JKTextField {
 extension JKTextField {
   class BorderedTextFieldDecorationView: TextFieldDecorationView {
     let tintBorderView = UIView()
-    override var contentInsets: NSDirectionalEdgeInsets { NSDirectionalEdgeInsets(10) }
+    override var contentInsets: NSDirectionalEdgeInsets { customContentInsets ?? NSDirectionalEdgeInsets(10) }
 
     override func configure() {
       super.configure()
@@ -285,7 +298,7 @@ extension JKTextField {
 
 extension JKTextField {
   class RoundedTextFieldDecorationView: TextFieldDecorationView {
-    override var contentInsets: NSDirectionalEdgeInsets { NSDirectionalEdgeInsets(10) }
+    override var contentInsets: NSDirectionalEdgeInsets { customContentInsets ?? NSDirectionalEdgeInsets(10) }
 
     override func configure() {
       super.configure()

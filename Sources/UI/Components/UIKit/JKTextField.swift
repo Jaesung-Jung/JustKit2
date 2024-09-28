@@ -48,30 +48,30 @@ open class JKTextField: UITextField {
   }
 
   public override init(frame: CGRect) {
-    self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel)
+    self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: nil)
     super.init(frame: frame)
     setup()
 
   }
 
   public required init?(coder: NSCoder) {
-    self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel)
+    self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: nil)
     super.init(coder: coder)
     setup()
   }
 
-  public init(style: Style) {
+  public init(style: Style, contentInsets: NSDirectionalEdgeInsets? = nil) {
     switch style {
     case .plain:
-      self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel)
+      self.decorationView = TextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: contentInsets)
     case .underline:
-      self.decorationView = UnderlineTextFieldDecorationView(placeholderLabel: placeholderLabel)
+      self.decorationView = UnderlineTextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: contentInsets)
     case .bordered:
-      self.decorationView = BorderedTextFieldDecorationView(placeholderLabel: placeholderLabel)
+      self.decorationView = BorderedTextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: contentInsets)
     case .rounded:
-      self.decorationView = RoundedTextFieldDecorationView(placeholderLabel: placeholderLabel)
+      self.decorationView = RoundedTextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: contentInsets)
     case .floatingLabel:
-      self.decorationView = FloatingTextFieldDecorationView(placeholderLabel: placeholderLabel)
+      self.decorationView = FloatingTextFieldDecorationView(placeholderLabel: placeholderLabel, contentInsets: contentInsets)
     }
     super.init(frame: .zero)
     setup()

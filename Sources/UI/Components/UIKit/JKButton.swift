@@ -132,6 +132,7 @@ extension JKButton {
     public var role: Role = .default
     public var componentSize: ComponentSize = .regular
     public var showsActivityIndicator: Bool = false
+    public var contentInsets: NSDirectionalEdgeInsets = .zero
 
     var controlState: UIControl.State = .normal
 
@@ -296,6 +297,7 @@ extension JKButton {
           .opacity(configuration.showsActivityIndicator ? 0 : 1)
         Spacer(minLength: 0)
       }
+      .padding(EdgeInsets(configuration.contentInsets))
     }
   }
 }
