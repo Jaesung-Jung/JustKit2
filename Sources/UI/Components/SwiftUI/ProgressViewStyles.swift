@@ -189,7 +189,7 @@ struct CircleFadeProgressViewStyle: ProgressViewStyle {
         label
           .font(componentSize.preferredFont)
       }
-      .foregroundStyle(Color(.systemGray3))
+      .foregroundStyle(.tertiary)
     }
   }
 }
@@ -223,7 +223,7 @@ struct CircleScaleProgressViewStyle: ProgressViewStyle {
         label
           .font(componentSize.preferredFont)
       }
-      .foregroundStyle(Color(.systemGray3))
+      .foregroundStyle(.tertiary)
     }
   }
 }

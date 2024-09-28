@@ -192,6 +192,8 @@ extension JKButton {
       switch componentSize {
       case .mini, .small, .regular:
         return .mini
+      case .large:
+        return .small
       default:
         return .regular
       }
@@ -246,6 +248,7 @@ extension JKButton {
         if configuration.showsActivityIndicator {
           ProgressView()
             .controlSize(activityIndicatorSize)
+            .progressViewStyle(.just.circleFade)
         }
       }
     }

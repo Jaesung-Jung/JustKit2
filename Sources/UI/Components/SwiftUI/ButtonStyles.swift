@@ -193,14 +193,13 @@ struct JustFilledButtonStyle: PrimitiveButtonStyle {
       ZStack {
         configuredLabel {
           RoundedRectangle(cornerRadius: 8)
-            .fill(.primary)
+            .fill(baseShape.opacity(isEnabled ? 1 : 0.35))
           label
             .padding(padding)
-            .foregroundStyle(.white)
+            .foregroundStyle(isEnabled ? AnyShapeStyle(.white) : AnyShapeStyle(.tertiary))
             .layoutPriority(1)
         }
       }
-      .foregroundStyle(baseShape)
       .animation(animation, value: isPressed)
     }
   }
@@ -232,7 +231,7 @@ struct JustTintedButtonStyle: PrimitiveButtonStyle {
       ZStack {
         configuredLabel {
           RoundedRectangle(cornerRadius: 8)
-            .fill(.quaternary)
+            .fill(.quaternary.opacity(isEnabled ? 1 : 0.5))
           label
             .padding(padding)
             .layoutPriority(1)
