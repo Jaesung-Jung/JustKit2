@@ -30,7 +30,7 @@ import SwiftUI
 public struct UIKitView<View: UIView>: UIViewRepresentable {
   let view: View
 
-  public init(_ builder: @escaping () -> View) {
+  public init(_ builder: () -> View) {
     view = builder()
   }
 
