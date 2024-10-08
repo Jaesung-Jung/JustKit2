@@ -134,6 +134,8 @@ extension JKButton {
     public var showsActivityIndicator: Bool = false
     public var contentInsets: NSDirectionalEdgeInsets = .zero
 
+    public var foregroundColor: UIColor?
+
     var controlState: UIControl.State = .normal
 
     var fontWeight: UIFont.Weight {
@@ -293,8 +295,14 @@ extension JKButton {
     func makeLabel() -> some View {
       HStack(spacing: 0) {
         Spacer(minLength: 0)
-        makeContent()
-          .opacity(configuration.showsActivityIndicator ? 0 : 1)
+        if let foregroundColor = configuration.foregroundColor, configuration.controlState.isEnabled {
+          makeContent()
+            .foregroundStyle(Color(foregroundColor))
+            .opacity(configuration.showsActivityIndicator ? 0 : 1)
+        } else {
+          makeContent()
+            .opacity(configuration.showsActivityIndicator ? 0 : 1)
+        }
         Spacer(minLength: 0)
       }
       .padding(EdgeInsets(configuration.contentInsets))
@@ -320,7 +328,7 @@ extension JKButton {
       if !configuration.controlState.isEnabled {
         symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(.tertiaryLabel))
       } else if configuration.style == .filled {
-        symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(.white))
+        symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(configuration.foregroundColor ?? .white))
       } else {
         switch configuration.role {
         case .destructive:
