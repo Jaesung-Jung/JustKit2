@@ -32,31 +32,3 @@ extension ProcessInfo {
   }
   #endif
 }
-
-// MARK: - URL
-
-extension URL {
-  /// Document directory.
-  public static let userDocument = try! FileManager.default.url( // swiftlint:disable:this force_try
-    for: .documentDirectory,
-    in: .userDomainMask,
-    appropriateFor: nil,
-    create: false
-  )
-
-  /// The standard directory for discardable cache files.
-  public static let userCaches = try! FileManager.default.url(  // swiftlint:disable:this force_try
-    for: .cachesDirectory,
-    in: .userDomainMask,
-    appropriateFor: nil,
-    create: false
-  )
-
-  /// The standard directory for documentation, support, and configuration files.
-  public static let userLibrary = try! FileManager.default.url( // swiftlint:disable:this force_try
-    for: .libraryDirectory,
-    in: .userDomainMask,
-    appropriateFor: nil,
-    create: false
-  )
-}
