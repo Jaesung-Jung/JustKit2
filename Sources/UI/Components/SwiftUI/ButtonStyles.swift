@@ -47,7 +47,7 @@ extension ButtonContent {
   var weight: Font.Weight {
     switch componentSize {
     case .mini, .small:
-      return .regular
+      return role == .cancel ? .regular : .medium
     case .large, .extraLarge:
       return role == .cancel ? .regular : .bold
     default:
@@ -205,6 +205,51 @@ struct JustFilledButtonStyle: PrimitiveButtonStyle {
   }
 }
 
+// MARK: - JustFilledCapsuleButtonStyle
+
+struct JustFilledCapsuleButtonStyle: PrimitiveButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    JustPrimitiveButton {
+      Content(
+        label: configuration.label,
+        role: configuration.role,
+        componentSize: $0,
+        isPressed: $1,
+        isEnabled: $2
+      )
+    }
+  }
+
+  struct Content<Label: View>: ButtonContent, View {
+    let label: Label
+    let role: ButtonRole?
+    let componentSize: ComponentSize
+    let isPressed: Bool
+    let isEnabled: Bool
+
+    var body: some View {
+      ZStack {
+        configuredLabel {
+          Capsule()
+            .fill(baseShape.opacity(isEnabled ? 1 : 0.35))
+          label
+            .padding(
+              EdgeInsets(
+                top: padding.top,
+                leading: (padding.leading * 1.25).rounded(.down),
+                bottom: padding.bottom,
+                trailing: (padding.trailing * 1.25).rounded(.down)
+              )
+            )
+            .foregroundStyle(isEnabled ? AnyShapeStyle(.white) : AnyShapeStyle(.tertiary))
+            .layoutPriority(1)
+        }
+      }
+      .animation(animation, value: isPressed)
+    }
+  }
+}
+
 // MARK: - JustTintedButtonStyle
 
 struct JustTintedButtonStyle: PrimitiveButtonStyle {
@@ -231,6 +276,51 @@ struct JustTintedButtonStyle: PrimitiveButtonStyle {
       ZStack {
         configuredLabel {
           RoundedRectangle(cornerRadius: 8)
+            .fill(.quaternary.opacity(isEnabled ? 1 : 0.5))
+          label
+            .padding(
+              EdgeInsets(
+                top: padding.top,
+                leading: (padding.leading * 1.25).rounded(.down),
+                bottom: padding.bottom,
+                trailing: (padding.trailing * 1.25).rounded(.down)
+              )
+            )
+            .layoutPriority(1)
+        }
+      }
+      .foregroundStyle(baseShape)
+      .animation(animation, value: isPressed)
+    }
+  }
+}
+
+// MARK: - JustTintedCapsuleButtonStyle
+
+struct JustTintedCapsuleButtonStyle: PrimitiveButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    JustPrimitiveButton {
+      Content(
+        label: configuration.label,
+        role: configuration.role,
+        componentSize: $0,
+        isPressed: $1,
+        isEnabled: $2
+      )
+    }
+  }
+
+  struct Content<Label: View>: ButtonContent, View {
+    let label: Label
+    let role: ButtonRole?
+    let componentSize: ComponentSize
+    let isPressed: Bool
+    let isEnabled: Bool
+
+    var body: some View {
+      ZStack {
+        configuredLabel {
+          Capsule()
             .fill(.quaternary.opacity(isEnabled ? 1 : 0.5))
           label
             .padding(padding)
@@ -306,7 +396,9 @@ public struct JustButtonStyles: PrimitiveButtonStyle {
   public static var plain: some PrimitiveButtonStyle { JustPlainButtonStyle() }
   public static var picker: some PrimitiveButtonStyle { JustPickerButtonStyle() }
   public static var filled: some PrimitiveButtonStyle { JustFilledButtonStyle() }
+  public static var filledCapsule: some PrimitiveButtonStyle { JustFilledCapsuleButtonStyle() }
   public static var tinted: some PrimitiveButtonStyle { JustTintedButtonStyle() }
+  public static var tintedCapsule: some PrimitiveButtonStyle { JustTintedCapsuleButtonStyle() }
   public static var bordered: some PrimitiveButtonStyle { JustBorderedButtonStyle() }
 
   public func makeBody(configuration: Configuration) -> some View {
@@ -353,10 +445,22 @@ public struct JustButtonStyles: PrimitiveButtonStyle {
       .buttonStyle(.just.filled)
       .textCase(nil)
 
+      Section(".just.filledCapsule") {
+        buttons()
+      }
+      .buttonStyle(.just.filledCapsule)
+      .textCase(nil)
+
       Section(".just.tinted") {
         buttons()
       }
       .buttonStyle(.just.tinted)
+      .textCase(nil)
+
+      Section(".just.tintedCapsule") {
+        buttons()
+      }
+      .buttonStyle(.just.tintedCapsule)
       .textCase(nil)
 
       Section(".just.bordered") {

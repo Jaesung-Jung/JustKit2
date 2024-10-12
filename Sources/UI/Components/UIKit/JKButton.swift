@@ -59,6 +59,7 @@ public class JKButton: ControlComponent<JKButton.Configuration> {
     if let size {
       self.configuration.componentSize = size
     }
+    updateConfigurationIfNeeded()
   }
 
   public convenience init(title: String?, style: Style? = nil, role: Role = .default, size: ComponentSize? = nil) {
@@ -71,6 +72,7 @@ public class JKButton: ControlComponent<JKButton.Configuration> {
     if let size {
       self.configuration.componentSize = size
     }
+    updateConfigurationIfNeeded()
   }
 
   public convenience init(localizedTitle: String.LocalizationValue, style: Style? = nil, role: Role = .default, size: ComponentSize? = nil) {
@@ -88,6 +90,7 @@ public class JKButton: ControlComponent<JKButton.Configuration> {
     if let size {
       self.configuration.componentSize = size
     }
+    updateConfigurationIfNeeded()
   }
 
   public convenience init(image: UIImage?, localizedTitle: String.LocalizationValue, style: Style? = nil, role: Role = .default, size: ComponentSize? = nil) {
@@ -103,6 +106,14 @@ public class JKButton: ControlComponent<JKButton.Configuration> {
     var mutableConfiguration = configuration
     mutableConfiguration.controlState = state
     contentView.state = mutableConfiguration
+  }
+
+  public override func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
+    return contentView.intrinsicContentSize
+  }
+
+  public override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+    return contentView.intrinsicContentSize
   }
 
   public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -141,7 +152,7 @@ extension JKButton {
     var fontWeight: UIFont.Weight {
       switch componentSize {
       case .mini, .small:
-        return .regular
+        return role == .cancel ? .regular : .medium
       case .large, .extraLarge:
         return role == .cancel ? .regular : .bold
       default:
@@ -158,7 +169,9 @@ extension JKButton {
     case plain
     case picker
     case filled
+    case filledCapsule
     case tinted
+    case tintedCapsule
     case bordered
   }
 }
@@ -229,8 +242,24 @@ extension JKButton {
             isPressed: configuration.controlState.isHighlighted,
             isEnabled: configuration.controlState.isEnabled && !configuration.showsActivityIndicator
           )
+        case .filledCapsule:
+          JustFilledCapsuleButtonStyle.Content(
+            label: makeLabel(),
+            role: configuration.role.buttonRole,
+            componentSize: componentSize,
+            isPressed: configuration.controlState.isHighlighted,
+            isEnabled: configuration.controlState.isEnabled && !configuration.showsActivityIndicator
+          )
         case .tinted:
           JustTintedButtonStyle.Content(
+            label: makeLabel(),
+            role: configuration.role.buttonRole,
+            componentSize: componentSize,
+            isPressed: configuration.controlState.isHighlighted,
+            isEnabled: configuration.controlState.isEnabled && !configuration.showsActivityIndicator
+          )
+        case .tintedCapsule:
+          JustTintedCapsuleButtonStyle.Content(
             label: makeLabel(),
             role: configuration.role.buttonRole,
             componentSize: componentSize,
@@ -327,7 +356,7 @@ extension JKButton {
       )
       if !configuration.controlState.isEnabled {
         symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(.tertiaryLabel))
-      } else if configuration.style == .filled {
+      } else if [.filled, .filledCapsule].contains(configuration.style) {
         symbolConfiguration = symbolConfiguration.applying(.hierarchicalColor(configuration.foregroundColor ?? .white))
       } else {
         switch configuration.role {
@@ -354,7 +383,9 @@ extension JKButton {
     JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .plain)
     JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .picker)
     JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .filled)
+    JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .filledCapsule)
     JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .tinted)
+    JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .tintedCapsule)
     JKButton(image: UIImage(systemName: "apple.logo"), title: "Button", style: .bordered)
   }
 }
