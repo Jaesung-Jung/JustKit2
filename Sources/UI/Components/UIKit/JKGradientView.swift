@@ -73,7 +73,7 @@ extension JKGradientView {
     .systemGreen,
     .systemBlue
   ]
-  return PreviewContentView(height: 400, contentInsets: NSDirectionalEdgeInsets(horizontal: 20)) {
+  return PreviewView(height: 400, contentInsets: NSDirectionalEdgeInsets(horizontal: 20)) {
     UIStackView(axis: .vertical, distribution: .fillEqually, spacing: 20) {
       UIStackView(axis: .horizontal, distribution: .fillEqually, spacing: 20) {
         JKGradientView(.linear(colors: colors, start: .topLeading, end: .bottomTrailing))

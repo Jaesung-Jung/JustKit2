@@ -114,17 +114,15 @@ extension JKProgressView {
 
 @available(iOS 17.0, macCatalyst 17.0, tvOS 17.0, watchOS 10.0, *)
 #Preview {
-  PreviewContentView {
-    UIStackView(axis: .vertical, alignment: .center, spacing: 40) {
-      PreviewContentView(width: 300) {
-        JKProgressView(style: .linear()).then {
-          $0.setProgress(0.5, animated: true)
-        }
+  UIStackView(axis: .vertical, alignment: .center, spacing: 40) {
+    PreviewView(width: 300) {
+      JKProgressView(style: .linear()).then {
+        $0.setProgress(0.5, animated: true)
       }
-      PreviewContentView(width: 100, height: 100) {
-        JKProgressView(style: .circular()).then {
-          $0.setProgress(0.5, animated: true)
-        }
+    }
+    PreviewView(width: 100, height: 100) {
+      JKProgressView(style: .circular()).then {
+        $0.setProgress(0.5, animated: true)
       }
     }
   }

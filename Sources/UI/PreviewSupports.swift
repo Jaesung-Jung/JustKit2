@@ -46,7 +46,7 @@ public struct UIKitView<View: UIView>: UIViewRepresentable {
 
 // MARK: - PreviewContentView
 
-public final class PreviewContentView<Content: UIView>: UIView {
+public final class PreviewView<Content: UIView>: UIView {
   public init(width: CGFloat? = nil, height: CGFloat? = nil, contentInsets: NSDirectionalEdgeInsets = .zero, contentView: () -> Content) {
     super.init(frame: .zero)
 
@@ -136,21 +136,13 @@ public final class PreviewViewController: UINavigationController {
       break
     }
   }
-}
 
-// MARK: - PreviewViewController.PresentationStyle
-
-extension PreviewViewController {
   public enum PresentationStyle {
     case root
     case push
     case present(UIModalPresentationStyle = .automatic)
   }
-}
 
-// MARK: - PreviewViewController.RootViewController
-
-extension PreviewViewController {
   class RootViewController: UIViewController {
     override func viewDidLoad() {
       super.viewDidLoad()
