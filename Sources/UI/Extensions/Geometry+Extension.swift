@@ -179,6 +179,110 @@ extension UIEdgeInsets {
     self.init(top: inset, left: inset, bottom: inset, right: inset)
   }
 
+  /// Creates `UIEdgeInsets` with a specified top inset value, and other insets set to zero.
+  ///
+  /// - Parameter top: The top inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the specified top inset.
+  @inlinable public static func top(_ top: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: top)
+  }
+
+  /// Creates `UIEdgeInsets` with a specified left inset value, and other insets set to zero.
+  ///
+  /// - Parameter left: The left inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the specified left inset.
+  @inlinable public static func left(_ left: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(left: left)
+  }
+
+  /// Creates `UIEdgeInsets` with a specified right inset value, and other insets set to zero.
+  ///
+  /// - Parameter right: The right inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the specified right inset.
+  @inlinable public static func right(_ right: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(right: right)
+  }
+
+  /// Creates `UIEdgeInsets` with a specified bottom inset value, and other insets set to zero.
+  ///
+  /// - Parameter bottom: The bottom inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the specified bottom inset.
+  @inlinable public static func bottom(_ bottom: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(bottom: bottom)
+  }
+
+  /// Creates `UIEdgeInsets` with specified horizontal insets for both left and right, and other insets set to zero.
+  ///
+  /// - Parameter horizontal: The left and right inset values.
+  /// - Returns: A `UIEdgeInsets` instance with the specified horizontal insets.
+  @inlinable public static func horizontal(_ horizontal: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(horizontal: horizontal)
+  }
+
+  /// Creates `UIEdgeInsets` with specified vertical insets for both top and bottom, and other insets set to zero.
+  ///
+  /// - Parameter vertical: The top and bottom inset values.
+  /// - Returns: A `UIEdgeInsets` instance with the specified vertical insets.
+  @inlinable public static func vertical(_ vertical: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(vertical: vertical)
+  }
+
+  /// Creates `UIEdgeInsets` with the same inset value for all edges (top, left, bottom, right).
+  ///
+  /// - Parameter edges: The inset value to apply to all edges.
+  /// - Returns: An `UIEdgeInsets` instance with uniform insets on all sides.
+  @inlinable public static func edges(_ edges: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(edges)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified top inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new top inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified top inset, and the original left, bottom, and right insets.
+  @inlinable public func top(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: value, left: left, bottom: bottom, right: right)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified left inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new left inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified left inset, and the original top, bottom, and right insets.
+  @inlinable public func left(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: top, left: value, bottom: bottom, right: right)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified right inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new right inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified right inset, and the original top, left, and bottom insets.
+  @inlinable public func right(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: top, left: left, bottom: bottom, right: value)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified bottom inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new bottom inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified bottom inset, and the original top, left, and right insets.
+  @inlinable public func bottom(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: top, left: left, bottom: value, right: right)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified horizontal insets (left and right), preserving the other insets.
+  ///
+  /// - Parameter value: The new horizontal inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified left and right insets, and the original top and bottom insets.
+  @inlinable public func horizontal(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: top, left: value, bottom: bottom, right: value)
+  }
+
+  /// Returns a new `UIEdgeInsets` instance with the specified vertical insets (top and bottom), preserving the other insets.
+  ///
+  /// - Parameter value: The new vertical inset value.
+  /// - Returns: A `UIEdgeInsets` instance with the modified top and bottom insets, and the original left and right insets.
+  @inlinable public func vertical(_ value: CGFloat) -> UIEdgeInsets {
+    UIEdgeInsets(top: value, left: left, bottom: value, right: right)
+  }
+
   /// Adds two `UIEdgeInsets` values element-wise.
   ///
   /// - Parameters:
@@ -533,6 +637,110 @@ extension NSDirectionalEdgeInsets {
   /// - Parameter inset: The inset to apply to `top`, `leading`, `bottom`, and `trailing`.
   public init(_ inset: CGFloat) {
     self.init(top: inset, leading: inset, bottom: inset, trailing: inset)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with a specified top inset value, and other insets set to zero.
+  ///
+  /// - Parameter top: The top inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified top inset.
+  @inlinable public static func top(_ top: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: top)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with a specified leading inset value, and other insets set to zero.
+  ///
+  /// - Parameter leading: The leading inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified leading inset.
+  @inlinable public static func leading(_ leading: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(leading: leading)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with a specified trailing inset value, and other insets set to zero.
+  ///
+  /// - Parameter trailing: The trailing inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified trailing inset.
+  @inlinable public static func trailing(_ trailing: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(trailing: trailing)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with a specified bottom inset value, and other insets set to zero.
+  ///
+  /// - Parameter bottom: The bottom inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified bottom inset.
+  @inlinable public static func bottom(_ bottom: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(bottom: bottom)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with specified horizontal insets for both leading and trailing, and other insets set to zero.
+  ///
+  /// - Parameter horizontal: The leading and trailing inset values.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified horizontal insets.
+  @inlinable public static func horizontal(_ horizontal: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(horizontal: horizontal)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with specified vertical insets for both top and bottom, and other insets set to zero.
+  ///
+  /// - Parameter vertical: The top and bottom inset values.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the specified vertical insets.
+  @inlinable public static func vertical(_ vertical: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(vertical: vertical)
+  }
+
+  /// Creates `NSDirectionalEdgeInsets` with the same inset value for all edges (top, leading, bottom, trailing).
+  ///
+  /// - Parameter edges: The inset value to apply to all edges.
+  /// - Returns: An `NSDirectionalEdgeInsets` instance with uniform insets on all sides.
+  @inlinable public static func edges(_ edges: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(edges)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified top inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new top inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified top inset, and the original leading, bottom, and trailing insets.
+  @inlinable public func top(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: value, leading: leading, bottom: bottom, trailing: trailing)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified leading inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new leading inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified leading inset, and the original top, bottom, and trailing insets.
+  @inlinable public func leading(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: top, leading: value, bottom: bottom, trailing: trailing)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified trailing inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new trailing inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified trailing inset, and the original top, leading, and bottom insets.
+  @inlinable public func trailing(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: value)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified bottom inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new bottom inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified bottom inset, and the original top, leading, and trailing insets.
+  @inlinable public func bottom(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: top, leading: leading, bottom: value, trailing: trailing)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified horizontal insets (leading and trailing), preserving the other insets.
+  ///
+  /// - Parameter value: The new horizontal inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified leading and trailing insets, and the original top and bottom insets.
+  @inlinable public func horizontal(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: top, leading: value, bottom: bottom, trailing: value)
+  }
+
+  /// Returns a new `NSDirectionalEdgeInsets` instance with the specified vertical insets (top and bottom), preserving the other insets.
+  ///
+  /// - Parameter value: The new vertical inset value.
+  /// - Returns: A `NSDirectionalEdgeInsets` instance with the modified top and bottom insets, and the original leading and trailing insets.
+  @inlinable public func vertical(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+    NSDirectionalEdgeInsets(top: value, leading: leading, bottom: value, trailing: trailing)
   }
 
   /// Adds two `NSDirectionalEdgeInsets` values element-wise.
@@ -890,6 +1098,110 @@ extension EdgeInsets {
   /// - Parameter inset: The inset for `top`, `leading`, `bottom`, and `trailing` edges.
   public init(_ inset: CGFloat) {
     self.init(top: inset, leading: inset, bottom: inset, trailing: inset)
+  }
+
+  /// Creates `EdgeInsets` with a specified top inset value, and other insets set to zero.
+  ///
+  /// - Parameter top: The top inset value.
+  /// - Returns: A `EdgeInsets` instance with the specified top inset.
+  @inlinable public static func top(_ top: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: top)
+  }
+
+  /// Creates `EdgeInsets` with a specified leading inset value, and other insets set to zero.
+  ///
+  /// - Parameter leading: The leading inset value.
+  /// - Returns: A `EdgeInsets` instance with the specified leading inset.
+  @inlinable public static func leading(_ leading: CGFloat) -> EdgeInsets {
+    EdgeInsets(leading: leading)
+  }
+
+  /// Creates `EdgeInsets` with a specified trailing inset value, and other insets set to zero.
+  ///
+  /// - Parameter trailing: The trailing inset value.
+  /// - Returns: A `EdgeInsets` instance with the specified trailing inset.
+  @inlinable public static func trailing(_ trailing: CGFloat) -> EdgeInsets {
+    EdgeInsets(trailing: trailing)
+  }
+
+  /// Creates `EdgeInsets` with a specified bottom inset value, and other insets set to zero.
+  ///
+  /// - Parameter bottom: The bottom inset value.
+  /// - Returns: A `EdgeInsets` instance with the specified bottom inset.
+  @inlinable public static func bottom(_ bottom: CGFloat) -> EdgeInsets {
+    EdgeInsets(bottom: bottom)
+  }
+
+  /// Creates `EdgeInsets` with specified horizontal insets for both leading and trailing, and other insets set to zero.
+  ///
+  /// - Parameter horizontal: The leading and trailing inset values.
+  /// - Returns: A `EdgeInsets` instance with the specified horizontal insets.
+  @inlinable public static func horizontal(_ horizontal: CGFloat) -> EdgeInsets {
+    EdgeInsets(horizontal: horizontal)
+  }
+
+  /// Creates `EdgeInsets` with specified vertical insets for both top and bottom, and other insets set to zero.
+  ///
+  /// - Parameter vertical: The top and bottom inset values.
+  /// - Returns: A `EdgeInsets` instance with the specified vertical insets.
+  @inlinable public static func vertical(_ vertical: CGFloat) -> EdgeInsets {
+    EdgeInsets(vertical: vertical)
+  }
+
+  /// Creates `EdgeInsets` with the same inset value for all edges (top, leading, bottom, trailing).
+  ///
+  /// - Parameter edges: The inset value to apply to all edges.
+  /// - Returns: An `EdgeInsets` instance with uniform insets on all sides.
+  @inlinable public static func edges(_ edges: CGFloat) -> EdgeInsets {
+    EdgeInsets(edges)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified top inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new top inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified top inset, and the original leading, bottom, and trailing insets.
+  @inlinable public func top(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: value, leading: leading, bottom: bottom, trailing: trailing)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified leading inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new leading inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified leading inset, and the original top, bottom, and trailing insets.
+  @inlinable public func leading(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: top, leading: value, bottom: bottom, trailing: trailing)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified trailing inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new trailing inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified trailing inset, and the original top, leading, and bottom insets.
+  @inlinable public func trailing(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: top, leading: leading, bottom: bottom, trailing: value)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified bottom inset, preserving the other insets.
+  ///
+  /// - Parameter value: The new bottom inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified bottom inset, and the original top, leading, and trailing insets.
+  @inlinable public func bottom(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: top, leading: leading, bottom: value, trailing: trailing)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified horizontal insets (leading and trailing), preserving the other insets.
+  ///
+  /// - Parameter value: The new horizontal inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified leading and trailing insets, and the original top and bottom insets.
+  @inlinable public func horizontal(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: top, leading: value, bottom: bottom, trailing: value)
+  }
+
+  /// Returns a new `EdgeInsets` instance with the specified vertical insets (top and bottom), preserving the other insets.
+  ///
+  /// - Parameter value: The new vertical inset value.
+  /// - Returns: A `EdgeInsets` instance with the modified top and bottom insets, and the original leading and trailing insets.
+  @inlinable public func vertical(_ value: CGFloat) -> EdgeInsets {
+    EdgeInsets(top: value, leading: leading, bottom: value, trailing: trailing)
   }
 
   /// Adds two `EdgeInsets` values element-wise.
