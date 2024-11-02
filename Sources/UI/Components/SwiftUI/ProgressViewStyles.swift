@@ -216,7 +216,41 @@ struct CircleScaleProgressViewStyle: ProgressViewStyle {
           AnyView(
             circle
               .opacity(flag ? 0.5 : 1)
-              .scaleEffect(flag ? CGSize(width: 0.5, height: 0.5) : CGSize(width: 1, height: 1))
+              .scaleEffect(flag ? CGSize(width: 0.7, height: 0.7) : CGSize(width: 1, height: 1))
+          )
+        }
+
+        label
+          .font(componentSize.preferredFont)
+      }
+      .foregroundStyle(.tertiary)
+    }
+  }
+}
+
+// MARK: - CircleScaleBottomProgressViewStyle
+
+struct CircleScaleBottomProgressViewStyle: ProgressViewStyle {
+  @Environment(\.controlSize) var controlSize
+
+  public func makeBody(configuration: Configuration) -> some View {
+    Content(
+      label: configuration.label,
+      componentSize: ComponentSize(controlSize)
+    )
+  }
+
+  struct Content<Label: View>: View {
+    let label: Label
+    let componentSize: ComponentSize
+
+    var body: some View {
+      VStack {
+        ProgressEllipsis(componentSize: componentSize) { circle, flag in
+          AnyView(
+            circle
+              .opacity(flag ? 0.5 : 1)
+              .scaleEffect(flag ? CGSize(width: 0.7, height: 0.7) : CGSize(width: 1, height: 1), anchor: .bottom)
           )
         }
 
@@ -233,7 +267,7 @@ struct CircleScaleProgressViewStyle: ProgressViewStyle {
 struct ProgressEllipsis: View {
   let size: CGFloat
   let modifier: (Circle, Bool) -> AnyView
-  let animation = Animation.easeInOut(duration: 0.4).repeatForever(autoreverses: true)
+  let animation = Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)
 
   init(componentSize: ComponentSize, modifier: @escaping (Circle, Bool) -> AnyView) {
     switch componentSize {
@@ -254,8 +288,8 @@ struct ProgressEllipsis: View {
   var body: some View {
     HStack(spacing: size / 2) {
       CircleItem(size: size, animation: animation, modifier: modifier)
-      CircleItem(size: size, animation: animation.delay(0.2), modifier: modifier)
-      CircleItem(size: size, animation: animation.delay(0.4), modifier: modifier)
+      CircleItem(size: size, animation: animation.delay(0.25), modifier: modifier)
+      CircleItem(size: size, animation: animation.delay(0.5), modifier: modifier)
     }
   }
 
@@ -296,6 +330,8 @@ public struct JustProgressViewStyles: ProgressViewStyle {
   public static var circleFade: some ProgressViewStyle { CircleFadeProgressViewStyle() }
 
   public static var circleScale: some ProgressViewStyle { CircleScaleProgressViewStyle() }
+
+  public static var circleScaleBottom: some ProgressViewStyle { CircleScaleBottomProgressViewStyle() }
 
   public func makeBody(configuration: Configuration) -> some View {
     EmptyView()
@@ -355,6 +391,13 @@ public struct JustProgressViewStyles: ProgressViewStyle {
         progressViews().progressViewStyle(.just.circleScale)
       } header: {
         header(".just.circleScale")
+      }
+      .listRowSeparator(.hidden)
+
+      Section {
+        progressViews().progressViewStyle(.just.circleScaleBottom)
+      } header: {
+        header(".just.circleScaleBottom")
       }
       .listRowSeparator(.hidden)
     }

@@ -45,3 +45,23 @@ extension Animation {
     }
   }
 }
+
+// MARK: - View (Modifier)
+
+extension View {
+  /// Conditionally applies a transformation to the view if a non-nil value is provided.
+  ///
+  /// This view modifier checks if the given optional value is non-nil. If it is, the provided transformation is applied, passing the view and the unwrapped value. If the value is nil, the original view is returned without any modifications.
+  ///
+  /// - Parameters:
+  ///   - value: An optional value of type `T`. If non-nil, `transform` is applied.
+  ///   - transform: A closure that takes the view (`Self`) and the unwrapped value (`T`) to produce a transformed view.
+  /// - Returns: The transformed view if `value` is non-nil; otherwise, the original view.
+  @ViewBuilder public func ifLet<T, Content: View>(_ value: T?, transform: (Self, T) -> Content) -> some View {
+    if let value {
+      transform(self, value)
+    } else {
+      self
+    }
+  }
+}

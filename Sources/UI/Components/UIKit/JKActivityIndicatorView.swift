@@ -63,6 +63,7 @@ extension JKActivityIndicatorView {
   public struct Configuration {
     var isAnimating: Bool = false
     public var style: Style
+    public var color: UIColor?
     public var componentSize: ComponentSize
     public var hidesWhenStopped: Bool = true
   }
@@ -75,6 +76,7 @@ extension JKActivityIndicatorView {
     case `default`
     case circleFade
     case circleScale
+    case circleScaleBottom
   }
 }
 
@@ -89,10 +91,16 @@ extension JKActivityIndicatorView {
         switch state.style {
         case .default:
           ProgressView().controlSize(state.componentSize.controlSize)
+            .ifLet(state.color) { $0.tint(Color($1)) }
         case .circleFade:
           CircleFadeProgressViewStyle.Content(label: EmptyView(), componentSize: state.componentSize)
+            .ifLet(state.color) { $0.foregroundStyle(Color($1)) }
         case .circleScale:
           CircleScaleProgressViewStyle.Content(label: EmptyView(), componentSize: state.componentSize)
+            .ifLet(state.color) { $0.foregroundStyle(Color($1)) }
+        case .circleScaleBottom:
+          CircleScaleBottomProgressViewStyle.Content(label: EmptyView(), componentSize: state.componentSize)
+            .ifLet(state.color) { $0.foregroundStyle(Color($1)) }
         }
       }
     }
@@ -103,7 +111,7 @@ extension JKActivityIndicatorView {
 
 @available(iOS 17.0, macCatalyst 17.0, *)
 #Preview {
-  let styles: [JKActivityIndicatorView.Style] = [.default, .circleFade, .circleScale]
+  let styles: [JKActivityIndicatorView.Style] = [.default, .circleFade, .circleScale, .circleScaleBottom]
   let makeActivityIndicator: (JKActivityIndicatorView.Style) -> JKActivityIndicatorView = { style in
     let activityIndicator = JKActivityIndicatorView()
     activityIndicator.configuration.style = style
