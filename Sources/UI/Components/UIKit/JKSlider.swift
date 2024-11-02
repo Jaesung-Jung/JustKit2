@@ -149,14 +149,14 @@ extension JKSlider {
               .resizable()
               .renderingMode(.template)
               .aspectRatio(contentMode: .fit)
-              .foregroundStyle(.tint.opacity(state.isActive ? 1 : 0.5))
+              .foregroundStyle(.tint)
               .frame(width: 20, height: 20)
           }
 
           ZStack {
             GeometryReader { proxy in
               Rectangle()
-                .fill(.tint.opacity(state.isActive ? 1 : 0.5))
+                .fill(.tint)
                 .frame(width: proxy.size.width * state.sliderValue.value)
             }
           }
@@ -169,7 +169,7 @@ extension JKSlider {
               .resizable()
               .renderingMode(.template)
               .aspectRatio(contentMode: .fit)
-              .foregroundStyle(.tint.opacity(state.isActive ? 1 : 0.5))
+              .foregroundStyle(.tint)
               .frame(width: 20, height: 20)
           }
         }
