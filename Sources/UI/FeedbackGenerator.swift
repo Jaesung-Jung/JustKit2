@@ -22,6 +22,7 @@
 //  THE SOFTWARE.
 
 import UIKit
+import AVFoundation
 
 // MARK: - FeedbackGenerator
 
@@ -71,6 +72,10 @@ extension FeedbackGenerator {
   @available(iOS 17.5, *)
   public static func canvase(view: UIView) -> FeedbackGenerator<UICanvasFeedbackGenerator> {
     return FeedbackGenerator<UICanvasFeedbackGenerator>(UICanvasFeedbackGenerator(view: view))
+  }
+
+  public static func system() -> FeedbackGenerator<SystemFeedbackGenerator> {
+    return FeedbackGenerator<SystemFeedbackGenerator>(SystemFeedbackGenerator())
   }
 }
 
@@ -124,5 +129,53 @@ extension FeedbackGenerator where Generator == UICanvasFeedbackGenerator {
 
   public func pathCompleted(at location: CGPoint) {
     generator.pathCompleted(at: location)
+  }
+}
+
+// MARK: - FeedbackGenerator.SystemFeedbackGenerator
+
+public class SystemFeedbackGenerator: UIFeedbackGenerator {
+  public func peek() {
+    AudioServicesPlaySystemSound(SystemSoundID(1519))
+  }
+
+  public func pop() {
+    AudioServicesPlaySystemSound(SystemSoundID(1520))
+  }
+
+  public func cancelled() {
+    AudioServicesPlaySystemSound(SystemSoundID(1521))
+  }
+
+  public func tryAgain() {
+    AudioServicesPlaySystemSound(SystemSoundID(1102))
+  }
+
+  public func failed() {
+    AudioServicesPlaySystemSound(SystemSoundID(1107))
+  }
+}
+
+// MARK: - FeedbackGenerator<SystemFeedbackGenerator>
+
+extension FeedbackGenerator where Generator == SystemFeedbackGenerator {
+  public func peek() {
+    generator.peek()
+  }
+
+  public func pop() {
+    generator.pop()
+  }
+
+  public func cancelled() {
+    generator.cancelled()
+  }
+
+  public func tryAgain() {
+    generator.tryAgain()
+  }
+
+  public func failed() {
+    generator.failed()
   }
 }
