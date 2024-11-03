@@ -95,7 +95,7 @@ extension JKShadowView {
 
 @available(iOS 17.0, macCatalyst 17.0, tvOS 17.0, watchOS 10.0, *)
 #Preview {
-  PreviewView(width: 100, height: 100) {
+  PreviewView(size: 100) {
     JKShadowView().then {
       $0.shadowCornerRadius = 8
     }

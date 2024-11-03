@@ -47,51 +47,73 @@ public struct UIKitView<View: UIView>: UIViewRepresentable {
 // MARK: - PreviewContentView
 
 public final class PreviewView<Content: UIView>: UIView {
-  public init(width: CGFloat? = nil, height: CGFloat? = nil, contentInsets: NSDirectionalEdgeInsets = .zero, contentView: () -> Content) {
+  let width: SizeStrategy
+  let height: SizeStrategy
+
+  let contentView: Content
+  let contentInsets: NSDirectionalEdgeInsets
+  var isConstraintSet: Bool = false
+
+  public convenience init(size: SizeStrategy, contentInsets: NSDirectionalEdgeInsets = .zero, makeContentView: () -> Content) {
+    self.init(width: size, height: size, contentInsets: contentInsets, makeContentView: makeContentView)
+  }
+
+  public init(width: SizeStrategy = .fit, height: SizeStrategy = .fit, contentInsets: NSDirectionalEdgeInsets = .zero, makeContentView: () -> Content) {
+    self.width = width
+    self.height = height
+    self.contentView = makeContentView().then {
+      $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    self.contentInsets = contentInsets
     super.init(frame: .zero)
-
-    let contentView = contentView()
     addSubview(contentView)
-    contentView.translatesAutoresizingMaskIntoConstraints = false
-
     NSLayoutConstraint.activate([
-      contentView.topAnchor.constraint(equalTo: topAnchor).then {
-        $0.priority = UILayoutPriority(1)
-      },
-      contentView.leadingAnchor.constraint(equalTo: leadingAnchor).then {
-        $0.priority = UILayoutPriority(1)
-      },
-      contentView.bottomAnchor.constraint(equalTo: bottomAnchor).then {
-        $0.priority = UILayoutPriority(1)
-      },
-      contentView.trailingAnchor.constraint(equalTo: trailingAnchor).then {
-        $0.priority = UILayoutPriority(1)
-      },
-      contentView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: contentInsets.top),
-      contentView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: contentInsets.leading),
-      contentView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -contentInsets.bottom),
-      contentView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -contentInsets.trailing)
+      contentView.topAnchor.constraint(equalTo: topAnchor),
+      contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
+      contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
     ])
+  }
 
-    if let width {
+  @available(*, unavailable)
+  public required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  public override func didMoveToWindow() {
+    super.didMoveToWindow()
+    guard let window, !isConstraintSet else {
+      return
+    }
+    if case .fill = width {
+      NSLayoutConstraint.activate([
+        contentView.widthAnchor.constraint(equalToConstant: window.bounds.width - contentInsets.horizontal)
+      ])
+    } else if case .constant(let width) = width {
       NSLayoutConstraint.activate([
         contentView.widthAnchor.constraint(equalToConstant: width)
       ])
     }
-    if let height {
+
+    if case .fill = height {
+      NSLayoutConstraint.activate([
+        contentView.widthAnchor.constraint(equalToConstant: window.bounds.height - contentInsets.vertical)
+      ])
+    } else if case .constant(let height) = height {
       NSLayoutConstraint.activate([
         contentView.heightAnchor.constraint(equalToConstant: height)
       ])
     }
   }
 
-  public convenience init(size: CGSize, contentInsets: NSDirectionalEdgeInsets = .zero, contentView: @escaping () -> Content) {
-    self.init(width: size.width, height: size.height, contentView: contentView)
-  }
+  public enum SizeStrategy: ExpressibleByIntegerLiteral {
+    case fit
+    case fill
+    case constant(CGFloat)
 
-  @available(*, unavailable)
-  public required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    public init(integerLiteral value: Int) {
+      self = .constant(CGFloat(value))
+    }
   }
 }
 

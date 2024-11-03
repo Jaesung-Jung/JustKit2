@@ -120,7 +120,7 @@ extension JKProgressView {
         $0.setProgress(0.5, animated: true)
       }
     }
-    PreviewView(width: 100, height: 100) {
+    PreviewView(size: 100) {
       JKProgressView(style: .circular()).then {
         $0.setProgress(0.5, animated: true)
       }
