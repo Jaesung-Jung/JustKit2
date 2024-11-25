@@ -42,6 +42,13 @@ open class Component<Configuration>: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
+  open override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    if newWindow != nil {
+      updateConfigurationIfNeeded()
+    }
+  }
+
   open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     if #unavailable(iOS 17.0, macCatalyst 17.0, tvOS 17.0) {
       setNeedsUpdateConfiguration()

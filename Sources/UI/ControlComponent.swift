@@ -37,19 +37,22 @@ open class ControlComponent<Configuration>: UIControl {
 
   open override var isHighlighted: Bool {
     didSet {
-      setNeedsUpdateConfiguration()
+      _needsUpdateConfiguration = true
+      updateConfigurationIfNeeded()
     }
   }
 
   open override var isSelected: Bool {
     didSet {
-      setNeedsUpdateConfiguration()
+      _needsUpdateConfiguration = true
+      updateConfigurationIfNeeded()
     }
   }
 
   open override var isEnabled: Bool {
     didSet {
-      setNeedsUpdateConfiguration()
+      _needsUpdateConfiguration = true
+      updateConfigurationIfNeeded()
     }
   }
 
@@ -76,6 +79,13 @@ open class ControlComponent<Configuration>: UIControl {
   @available(*, unavailable)
   public required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  open override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    if newWindow != nil {
+      updateConfigurationIfNeeded()
+    }
   }
 
   open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

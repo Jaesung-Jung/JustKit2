@@ -51,6 +51,13 @@ public final class JKShadowView: Component<JKShadowView.Configuration> {
     }
   }
 
+  public override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+    if let newWindow {
+      layer.rasterizationScale = newWindow.screen.scale
+    }
+  }
+
   public override func layoutSubviews() {
     super.layoutSubviews()
     layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: configuration.shadowCornerRadius).cgPath
